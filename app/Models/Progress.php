@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Progress extends Model
+final class Progress extends Model
 {
     /** @use HasFactory<\Database\Factories\ProgressFactory> */
     use HasFactory;
@@ -21,13 +23,6 @@ class Progress extends Model
         'details',
         'date',
     ];
-
-    protected function casts(): array
-    {
-        return [
-            'date' => 'date',
-        ];
-    }
 
     public function user(): BelongsTo
     {
@@ -47,5 +42,12 @@ class Progress extends Model
     public function progressCategory(): BelongsTo
     {
         return $this->belongsTo(ProgressCategory::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'date' => 'date',
+        ];
     }
 }

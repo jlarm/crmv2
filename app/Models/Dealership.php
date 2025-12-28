@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Dealership extends Model
+final class Dealership extends Model
 {
     /** @use HasFactory<\Database\Factories\DealershipFactory> */
     use HasFactory;
@@ -31,13 +33,6 @@ class Dealership extends Model
         'in_development',
         'dev_status',
     ];
-
-    protected function casts(): array
-    {
-        return [
-            'in_development' => 'boolean',
-        ];
-    }
 
     public function user(): BelongsTo
     {
@@ -72,5 +67,12 @@ class Dealership extends Model
     public function sentEmails(): HasMany
     {
         return $this->hasMany(SentEmail::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'in_development' => 'boolean',
+        ];
     }
 }

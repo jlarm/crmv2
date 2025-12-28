@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -7,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
-class DealerEmail extends Model
+final class DealerEmail extends Model
 {
     use HasFactory;
 
@@ -28,19 +30,6 @@ class DealerEmail extends Model
         'paused',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'customize_email' => 'boolean',
-            'customize_attachment' => 'boolean',
-            'recipients' => 'array',
-            'start_date' => 'date',
-            'last_sent' => 'date',
-            'next_send_date' => 'date',
-            'paused' => 'boolean',
-        ];
-    }
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -59,5 +48,18 @@ class DealerEmail extends Model
     public function pdfAttachments(): MorphToMany
     {
         return $this->morphToMany(PdfAttachment::class, 'attachable', 'attachables');
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'customize_email' => 'boolean',
+            'customize_attachment' => 'boolean',
+            'recipients' => 'array',
+            'start_date' => 'date',
+            'last_sent' => 'date',
+            'next_send_date' => 'date',
+            'paused' => 'boolean',
+        ];
     }
 }

@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
-class MigrateFromOldCrm extends Command
+final class MigrateFromOldCrm extends Command
 {
     protected $signature = 'crm:migrate-data {--fresh : Truncate all tables before migrating}';
 
@@ -50,7 +53,7 @@ class MigrateFromOldCrm extends Command
             $this->info('Data migration completed successfully!');
 
             return Command::SUCCESS;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             $this->error('Migration failed: '.$e->getMessage());
             $this->error($e->getTraceAsString());
@@ -512,6 +515,7 @@ class MigrateFromOldCrm extends Command
             if (! $pdfAttachmentExists) {
                 $skipped++;
                 $bar->advance();
+
                 continue;
             }
 
@@ -639,6 +643,7 @@ class MigrateFromOldCrm extends Command
 
             if ($alreadyExists) {
                 $duplicates++;
+
                 continue;
             }
 

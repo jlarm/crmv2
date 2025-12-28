@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -7,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class SentEmail extends Model
+final class SentEmail extends Model
 {
     use HasFactory;
 
@@ -19,13 +21,6 @@ class SentEmail extends Model
         'subject',
         'tracking_data',
     ];
-
-    protected function casts(): array
-    {
-        return [
-            'tracking_data' => 'array',
-        ];
-    }
 
     public function user(): BelongsTo
     {
@@ -40,5 +35,12 @@ class SentEmail extends Model
     public function emailTrackingEvents(): HasMany
     {
         return $this->hasMany(EmailTrackingEvent::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'tracking_data' => 'array',
+        ];
     }
 }

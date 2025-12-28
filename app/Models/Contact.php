@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Contact extends Model
+final class Contact extends Model
 {
     /** @use HasFactory<\Database\Factories\ContactFactory> */
     use HasFactory;
@@ -23,13 +25,6 @@ class Contact extends Model
         'primary_contact',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'primary_contact' => 'boolean',
-        ];
-    }
-
     public function dealership(): BelongsTo
     {
         return $this->belongsTo(Dealership::class);
@@ -43,5 +38,12 @@ class Contact extends Model
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'primary_contact' => 'boolean',
+        ];
     }
 }

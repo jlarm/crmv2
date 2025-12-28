@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class EmailTrackingEvent extends Model
+final class EmailTrackingEvent extends Model
 {
     use HasFactory;
 
@@ -22,16 +24,16 @@ class EmailTrackingEvent extends Model
         'event_timestamp',
     ];
 
+    public function sentEmail(): BelongsTo
+    {
+        return $this->belongsTo(SentEmail::class);
+    }
+
     protected function casts(): array
     {
         return [
             'mailgun_data' => 'array',
             'event_timestamp' => 'datetime',
         ];
-    }
-
-    public function sentEmail(): BelongsTo
-    {
-        return $this->belongsTo(SentEmail::class);
     }
 }
