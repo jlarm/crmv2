@@ -43,7 +43,7 @@ new class extends Component {
     public function dealerships()
     {
         return Dealership::query()
-            ->select('id', 'name', 'city', 'state')
+            ->select('id', 'name', 'city', 'state', 'status', 'rating')
             ->when($this->selectedUsers, fn($query) => $query->whereHas('users', fn($q) => $q->whereIn('users.id', $this->selectedUsers)))
             ->when($this->selectedStatuses, fn($query) => $query->whereIn('status', $this->selectedStatuses))
             ->when($this->selectedRatings, fn($query) => $query->whereIn('rating', $this->selectedRatings))
@@ -63,28 +63,32 @@ new class extends Component {
 ?>
 
 <div>
-    <div class="w-full flex justify-between items-center gap-x-2">
-        <flux:input icon="magnifying-glass" placeholder="Search dealerships..." wire:model.live.debounce.500ms="search"/>
-        <flux:pillbox multiple placeholder="Filter by user..." wire:model.live="selectedUsers">
-            @foreach($this->users as $user)
-                <flux:pillbox.option :key="$user->id" :value="$user->id">{{ $user->name }}</flux:pillbox.option>
-            @endforeach
-        </flux:pillbox>
-        <flux:pillbox multiple placeholder="Filter by status..." wire:model.live="selectedStatuses">
-            <flux:pillbox.option value="active">Active</flux:pillbox.option>
-            <flux:pillbox.option value="inactive">Inactive</flux:pillbox.option>
-            <flux:pillbox.option value="imported">Imported</flux:pillbox.option>
-        </flux:pillbox>
-        <flux:pillbox multiple placeholder="Filter by rating..." wire:model.live="selectedRatings">
-            <flux:pillbox.option value="hot">Hot</flux:pillbox.option>
-            <flux:pillbox.option value="warm">Warm</flux:pillbox.option>
-            <flux:pillbox.option value="cold">Cold</flux:pillbox.option>
-        </flux:pillbox>
-        <flux:button wire:click="clearFilters">Clear Filters</flux:button>
+    <div class="w-full flex justify-between items-center gap-x-2 mb-5">
+        <flux:input size="sm" icon="magnifying-glass" placeholder="Search dealerships..." wire:model.live.debounce.500ms="search"/>
+        <div class="flex gap-x-2">
+            <flux:pillbox size="sm" multiple placeholder="Filter by user..." wire:model.live="selectedUsers">
+                @foreach($this->users as $user)
+                    <flux:pillbox.option :key="$user->id" :value="$user->id">{{ $user->name }}</flux:pillbox.option>
+                @endforeach
+            </flux:pillbox>
+            <flux:pillbox size="sm" multiple placeholder="Filter by status..." wire:model.live="selectedStatuses">
+                <flux:pillbox.option value="active">Active</flux:pillbox.option>
+                <flux:pillbox.option value="inactive">Inactive</flux:pillbox.option>
+                <flux:pillbox.option value="imported">Imported</flux:pillbox.option>
+            </flux:pillbox>
+            <flux:pillbox size="sm" multiple placeholder="Filter by rating..." wire:model.live="selectedRatings">
+                <flux:pillbox.option value="hot">Hot</flux:pillbox.option>
+                <flux:pillbox.option value="warm">Warm</flux:pillbox.option>
+                <flux:pillbox.option value="cold">Cold</flux:pillbox.option>
+            </flux:pillbox>
+            <flux:button size="sm" wire:click="clearFilters">Clear Filters</flux:button>
+        </div>
     </div>
     <flux:table class="w-full" :paginate="$this->dealerships">
         <flux:table.columns>
             <flux:table.column sortable :sorted="$sortBy === 'name'" :direction="$sortDirection" wire:click="sort('name')">Name</flux:table.column>
+            <flux:table.column sortable :sorted="$sortBy === 'status'" :direction="$sortDirection" wire:click="sort('status')">Status</flux:table.column>
+            <flux:table.column sortable :sorted="$sortBy === 'rating'" :direction="$sortDirection" wire:click="sort('rating')">Rating</flux:table.column>
         </flux:table.columns>
         <flux:table.rows>
             @foreach($this->dealerships as $dealership)
@@ -92,6 +96,12 @@ new class extends Component {
                     <flux:table.cell>
                         {{ $dealership->name }}
                         <p class="text-xs text-zinc-400">{{ $dealership->city }}, {{ $dealership->state }}</p>
+                    </flux:table.cell>
+                    <flux:table.cell>
+                        <flux:badge size="sm" :color="$dealership->status === 'active' ? 'green' : 'red'">{{ $dealership->status }}</flux:badge>
+                    </flux:table.cell>
+                    <flux:table.cell>
+                        <flux:badge size="sm" :color="$dealership->rating === 'hot' ? 'red' : ($dealership->rating === 'warm' ? 'yellow' : 'blue')">{{ $dealership->rating }}</flux:badge>
                     </flux:table.cell>
                 </flux:table.row>
             @endforeach
