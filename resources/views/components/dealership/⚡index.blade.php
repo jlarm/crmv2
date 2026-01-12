@@ -89,6 +89,7 @@ new class extends Component {
             <flux:table.column sortable :sorted="$sortBy === 'name'" :direction="$sortDirection" wire:click="sort('name')">Name</flux:table.column>
             <flux:table.column sortable :sorted="$sortBy === 'status'" :direction="$sortDirection" wire:click="sort('status')">Status</flux:table.column>
             <flux:table.column sortable :sorted="$sortBy === 'rating'" :direction="$sortDirection" wire:click="sort('rating')">Rating</flux:table.column>
+            <flux:table.column></flux:table.column>
         </flux:table.columns>
         <flux:table.rows>
             @foreach($this->dealerships as $dealership)
@@ -102,6 +103,9 @@ new class extends Component {
                     </flux:table.cell>
                     <flux:table.cell>
                         <flux:badge size="sm" :color="$dealership->rating === 'hot' ? 'red' : ($dealership->rating === 'warm' ? 'yellow' : 'blue')">{{ $dealership->rating }}</flux:badge>
+                    </flux:table.cell>
+                    <flux:table.cell align="end">
+                        <flux:button wire:navigate :href="route('dealership.show', $dealership)" size="xs">View</flux:button>
                     </flux:table.cell>
                 </flux:table.row>
             @endforeach
