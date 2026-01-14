@@ -17,7 +17,7 @@ new class extends Component {
 };
 ?>
 
-<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
     @foreach($this->stores as $store)
         <flux:card class="hover:bg-slate-50 transition">
             <flux:heading>{{ $store->name }}</flux:heading>
