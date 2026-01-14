@@ -18,7 +18,7 @@ new class extends Component {
 ?>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-    @foreach($this->stores as $store)
+    @forelse($this->stores as $store)
         <flux:card class="hover:bg-slate-50 transition">
             <flux:heading>{{ $store->name }}</flux:heading>
             <flux:text class="mt-1">
@@ -27,5 +27,9 @@ new class extends Component {
                 <span class="block mt-3">{{ $store->phone }}</span>
             </flux:text>
         </flux:card>
-    @endforeach
+    @empty
+        <div class="col-span-full text-center">
+            <flux:heading size="lg">No stores found.</flux:heading>
+        </div>
+    @endforelse
 </div>

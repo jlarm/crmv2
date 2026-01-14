@@ -18,13 +18,15 @@ new class extends Component {
 ?>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-    @foreach($this->contacts as $contact)
+    @forelse($this->contacts as $contact)
         <flux:card class="hover:bg-slate-50 transition space-y-4">
             <div class="flex items-center justify-between gap-2">
-                <flux:heading size="lg">{{ $contact->name }}</flux:heading>
-                <flux:badge size="sm">{{ $contact->position }}</flux:badge>
+                <flux:heading>{{ $contact->name }}</flux:heading>
+                @if($contact->position)
+                <flux:badge size="sm" color="blue">{{ $contact->position }}</flux:badge>
+                @endif
             </div>
-            <div>
+            <div class="text-zinc-500">
                 @if($contact->phone)
                 <span class="flex items-center gap-2 text-sm"><flux:icon.phone class="size-3" /> {{ $contact->phone }}</span>
                 @endif
@@ -36,5 +38,9 @@ new class extends Component {
                 @endif
             </div>
         </flux:card>
-    @endforeach
+    @empty
+        <div class="col-span-full text-center">
+            <flux:heading size="lg">No contacts found.</flux:heading>
+        </div>
+    @endforelse
 </div>
