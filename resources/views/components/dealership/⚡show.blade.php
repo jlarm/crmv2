@@ -81,7 +81,7 @@ new class extends Component {
                     <flux:field>
                         <flux:label>Notes</flux:label>
 
-                        <flux:textarea wire:model="form.notes" />
+                        <flux:textarea rows="auto" wire:model="form.notes" />
 
                         <flux:error name="form.phone"/>
                     </flux:field>
