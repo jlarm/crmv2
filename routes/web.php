@@ -15,9 +15,11 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::livewire('dashboard', 'pages::dealership.index')->name('dashboard');
 
-    Route::get('dealership/{dealership}', [DealershipController::class, 'show'])->name('dealership.show');
+    Route::livewire('dealership/{dealership}', 'pages::dealership.show')->name('dealership.show');
+
+    //    Route::get('dealership/{dealership}', [DealershipController::class, 'show'])->name('dealership.show');
 });
 
 Route::middleware(['auth'])->group(function () {
