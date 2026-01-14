@@ -30,6 +30,29 @@ final class DealershipForm extends Form
     #[Validate('nullable|string|max:255')]
     public string $phone = '';
 
+    #[Validate('nullable|string|max:255')]
+    public string $type = '';
+
+    #[Validate('boolean')]
+    public bool $inDevelopment = false;
+
+    #[Validate('nullable|string|max:255')]
+    public string $status = '';
+
+    #[Validate('nullable|string|max:255')]
+    public string $rating = '';
+
+    public array $consultants = [];
+
+    #[Validate('nullable|string')]
+    public string $notes = '';
+
+    #[Validate('nullable|string|max:255')]
+    public string $currentSolutionName = '';
+
+    #[Validate('nullable|string|max:255')]
+    public string $currentSolutionUse = '';
+
     public function setDealership(Dealership $dealership): void
     {
         $this->dealership = $dealership;
@@ -39,5 +62,13 @@ final class DealershipForm extends Form
         $this->state = $dealership->state ?? '';
         $this->zipCode = $dealership->zip_code ?? '';
         $this->phone = $dealership->phone ?? '';
+        $this->type = $dealership->type ?? '';
+        $this->inDevelopment = $dealership->in_development;
+        $this->status = $dealership->status ?? '';
+        $this->rating = $dealership->rating ?? '';
+        $this->notes = $dealership->notes ?? '';
+        $this->currentSolutionName = $dealership->current_solution_name ?? '';
+        $this->currentSolutionUse = $dealership->current_solution_use ?? '';
+        $this->consultants = $dealership->users->pluck('id')->toArray();
     }
 }

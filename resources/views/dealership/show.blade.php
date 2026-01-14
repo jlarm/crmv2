@@ -1,22 +1,26 @@
 <x-layouts.app :title="$dealership->name">
-    <div class="flex justify-between items-center">
-        <div>
-            <flux:heading size="xl">{{ $dealership->name }}</flux:heading>
-            <flux:text>ID: {{ $dealership->id }}</flux:text>
+    <flux:card>
+        <div class="flex justify-between items-center mb-5">
+            <div>
+                <flux:heading size="xl">{{ $dealership->name }}</flux:heading>
+                <flux:text>ID: {{ $dealership->id }}</flux:text>
+            </div>
+            <flux:button wire:navigate :href="route('dashboard')" size="sm">Back</flux:button>
         </div>
-        <flux:button wire:navigate :href="route('dashboard')" size="sm">Back</flux:button>
-    </div>
-    <div class="my-4">
-        <flux:navbar>
-            <flux:navbar.item :href="route('dealership.show', $dealership)">Info</flux:navbar.item>
-            <flux:navbar.item href="#">Stores</flux:navbar.item>
-            <flux:navbar.item href="#">Contacts</flux:navbar.item>
-            <flux:navbar.item href="#">Progress</flux:navbar.item>
-            <flux:navbar.item href="#">Emails</flux:navbar.item>
-        </flux:navbar>
-        <flux:separator variant="subtle" />
-    </div>
-    <div>
-        <livewire:dealership.show :$dealership />
-    </div>
+        <flux:tab.group>
+            <flux:tabs wire:model="tab">
+                <flux:tab name="info">Info</flux:tab>
+                <flux:tab name="stores">Stores</flux:tab>
+                <flux:tab name="contacts">Contacts</flux:tab>
+            </flux:tabs>
+
+            <flux:tab.panel name="info">
+                <livewire:dealership.show :$dealership lazy />
+            </flux:tab.panel>
+            <flux:tab.panel name="stores">
+                <livewire:dealership.stores :$dealership lazy />
+            </flux:tab.panel>
+            <flux:tab.panel name="contacts">...</flux:tab.panel>
+        </flux:tab.group>
+    </flux:card>
 </x-layouts.app>
