@@ -20,7 +20,9 @@
             <flux:tab.panel name="stores">
                 <livewire:dealership.stores :$dealership lazy />
             </flux:tab.panel>
-            <flux:tab.panel name="contacts">...</flux:tab.panel>
+            <flux:tab.panel name="contacts">
+                <livewire:dealership.contacts :$dealership lazy />
+            </flux:tab.panel>
         </flux:tab.group>
     </flux:card>
 </x-layouts.app>
