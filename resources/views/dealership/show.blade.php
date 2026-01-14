@@ -11,7 +11,7 @@
             <flux:navbar.item href="#">Progress</flux:navbar.item>
             <flux:navbar.item href="#">Emails</flux:navbar.item>
         </flux:navbar>
-        <flux:separator variant="subtle" class="" />
+        <flux:separator variant="subtle" />
     </div>
     <div>
         <livewire:dealership.show :$dealership />

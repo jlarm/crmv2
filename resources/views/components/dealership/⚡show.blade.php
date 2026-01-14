@@ -67,17 +67,7 @@ new class extends Component {
         </div>
         <div>
             <flux:card>
-                <flux:tab.group>
-                    <flux:tabs wire:model="tab">
-                        <flux:tab name="profile">Profile</flux:tab>
-                        <flux:tab name="account">Account</flux:tab>
-                        <flux:tab name="billing">Billing</flux:tab>
-                    </flux:tabs>
-
-                    <flux:tab.panel name="profile">profile</flux:tab.panel>
-                    <flux:tab.panel name="account">account</flux:tab.panel>
-                    <flux:tab.panel name="billing">billing</flux:tab.panel>
-                </flux:tab.group>
+                test
             </flux:card>
         </div>
     </form>
