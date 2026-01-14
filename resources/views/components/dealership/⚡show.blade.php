@@ -58,6 +58,14 @@ new class extends Component {
                             <flux:error name="zipCode"/>
                         </flux:field>
                     </div>
+
+                    <flux:field>
+                        <flux:label>Phone Number</flux:label>
+
+                        <flux:input mask="(999) 999-9999" wire:model="form.phone"/>
+
+                        <flux:error name="form.phone"/>
+                    </flux:field>
                 </div>
             </flux:card>
             <div class="mt-5">

@@ -27,7 +27,7 @@ new class extends Component {
 ?>
 
 @placeholder
-<div class="grid auto-rows-min gap-4 md:grid-cols-3">
+<div class="grid auto-rows-min gap-2 md:grid-cols-3">
     <flux:skeleton animate="shimmer" class="h-20 w-full" />
     <flux:skeleton animate="shimmer" class="h-20 w-full" />
     <flux:skeleton animate="shimmer" class="h-20 w-full" />
@@ -35,7 +35,7 @@ new class extends Component {
 @endplaceholder
 
 
-<div class="grid auto-rows-min gap-4 md:grid-cols-3">
+<div class="grid auto-rows-min gap-2 md:grid-cols-3">
     <flux:card>
         <flux:subheading>Active Dealerships</flux:subheading>
         <flux:heading size="xl">{{ $this->active() }}</flux:heading>

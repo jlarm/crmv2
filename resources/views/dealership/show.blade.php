@@ -1,6 +1,9 @@
 <x-layouts.app :title="$dealership->name">
     <div class="flex justify-between items-center">
-        <flux:heading size="xl">{{ $dealership->name }}</flux:heading>
+        <div>
+            <flux:heading size="xl">{{ $dealership->name }}</flux:heading>
+            <flux:text>ID: {{ $dealership->id }}</flux:text>
+        </div>
         <flux:button wire:navigate :href="route('dashboard')" size="sm">Back</flux:button>
     </div>
     <div class="my-4">

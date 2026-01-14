@@ -89,7 +89,7 @@ new class extends Component {
 };
 ?>
 
-<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-2">
     <div class="col-span-1">
         <flux:card class="flex flex-col gap-4">
             <flux:heading size="lg" class="flex items-center gap-2">
@@ -113,7 +113,7 @@ new class extends Component {
                 <flux:pillbox.option value="cold">Cold</flux:pillbox.option>
             </flux:pillbox>
             <flux:checkbox.group variant="cards">
-                <flux:checkbox label="Show imported dealerships" wire:model.live="showImported"/>
+                <flux:checkbox label="Show imported" wire:model.live="showImported"/>
             </flux:checkbox.group>
             @if($this->hasActiveFilters)
                 <flux:button wire:click="clearFilters">Clear Filters</flux:button>

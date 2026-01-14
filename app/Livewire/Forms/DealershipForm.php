@@ -27,6 +27,9 @@ final class DealershipForm extends Form
     #[Validate('nullable|string|max:255')]
     public string $zipCode = '';
 
+    #[Validate('nullable|string|max:255')]
+    public string $phone = '';
+
     public function setDealership(Dealership $dealership): void
     {
         $this->dealership = $dealership;
@@ -35,5 +38,6 @@ final class DealershipForm extends Form
         $this->city = $dealership->city ?? '';
         $this->state = $dealership->state ?? '';
         $this->zipCode = $dealership->zip_code ?? '';
+        $this->phone = $dealership->phone ?? '';
     }
 }
