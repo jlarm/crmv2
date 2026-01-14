@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Number;
 
 final class Dealership extends Model
 {
@@ -33,6 +34,21 @@ final class Dealership extends Model
         'in_development',
         'dev_status',
     ];
+
+    public static function activeStatusCount(): false|string
+    {
+        return Number::format(self::where('status', 'active')->count());
+    }
+
+    public static function inactiveStatusCount(): false|string
+    {
+        return Number::format(self::where('status', 'inactive')->count());
+    }
+
+    public static function importedStatusCount(): false|string
+    {
+        return Number::format(self::where('status', 'imported')->count());
+    }
 
     public function user(): BelongsTo
     {

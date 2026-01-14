@@ -42,6 +42,16 @@ new class extends Component {
     }
 
     #[Computed]
+    public function hasActiveFilters(): bool
+    {
+        return $this->search !== ''
+            || $this->selectedUsers != []
+            || $this->selectedStatuses != []
+            || $this->selectedRatings != []
+            || $this->showImported;
+    }
+
+    #[Computed]
     public function dealerships()
     {
         return Dealership::query()
@@ -105,17 +115,19 @@ new class extends Component {
             <flux:checkbox.group variant="cards">
                 <flux:checkbox label="Show imported dealerships" wire:model.live="showImported"/>
             </flux:checkbox.group>
-            <flux:button wire:click="clearFilters">Clear Filters</flux:button>
+            @if($this->hasActiveFilters)
+                <flux:button wire:click="clearFilters">Clear Filters</flux:button>
+            @endif
         </flux:card>
     </div>
     <div class="col-span-3 w-full">
         <flux:card>
             <flux:table class="w-full" :paginate="$this->dealerships">
                 <flux:table.columns>
-                    <flux:table.column sortable :sorted="$sortBy === 'name'" :direction="$sortDirection" wire:click="sort('name')">Name</flux:table.column>
-                    <flux:table.column class="w-24" sortable :sorted="$sortBy === 'status'" :direction="$sortDirection" wire:click="sort('status')">Status</flux:table.column>
-                    <flux:table.column class="w-24" sortable :sorted="$sortBy === 'rating'" :direction="$sortDirection" wire:click="sort('rating')">Rating</flux:table.column>
-                    <flux:table.column class="w-20"></flux:table.column>
+                    <flux:table.column class="w-1/2" sortable :sorted="$sortBy === 'name'" :direction="$sortDirection" wire:click="sort('name')">Name</flux:table.column>
+                    <flux:table.column sortable :sorted="$sortBy === 'status'" :direction="$sortDirection" wire:click="sort('status')">Status</flux:table.column>
+                    <flux:table.column sortable :sorted="$sortBy === 'rating'" :direction="$sortDirection" wire:click="sort('rating')">Rating</flux:table.column>
+                    <flux:table.column></flux:table.column>
                 </flux:table.columns>
                 <flux:table.rows>
                     @foreach($this->dealerships as $dealership)
