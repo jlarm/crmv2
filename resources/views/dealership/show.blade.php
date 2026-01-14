@@ -1,7 +1,7 @@
 <x-layouts.app :title="$dealership->name">
     <flux:card>
         <div class="flex justify-between items-center mb-5">
-            <div>
+            <div class="flex gap-3 items-center">
                 <flux:heading size="xl">{{ $dealership->name }}</flux:heading>
                 <flux:text>ID: {{ $dealership->id }}</flux:text>
             </div>
