@@ -14,6 +14,8 @@ new class extends Component {
     {
         return $this->dealership
             ->contacts()
+            ->orderByDesc('primary_contact')
+            ->orderBy('name')
             ->get();
     }
 };
@@ -43,7 +45,7 @@ new class extends Component {
                     <span class="flex items-center gap-2 text-sm"><flux:icon.envelope class="size-3"/> {{ $contact->email }}</span>
                 @endif
                 @if($contact->linkedin_link)
-                    <a :href="$contact->linkedin_link" class="flex items-center gap-2 text-sm">
+                    <a href="{{ $contact->linkedin_link }}" class="flex items-center gap-2 text-sm">
                         <flux:icon.linkedin class="size-3"/>
                         LinkedIn</a>
                 @endif
