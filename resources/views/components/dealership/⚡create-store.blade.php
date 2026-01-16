@@ -5,8 +5,6 @@ use App\Models\Dealership;
 use Livewire\Component;
 
 new class extends Component {
-    public Dealership $dealership;
-
     public StoreForm $form;
 
     public function mount(Dealership $dealership): void

@@ -2,12 +2,14 @@
 
 use App\Models\Dealership;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 new class extends Component {
     public Dealership $dealership;
 
     #[Computed]
+    #[On('contact-created')]
     public function contacts()
     {
         return $this->dealership
@@ -21,20 +23,29 @@ new class extends Component {
     @forelse($this->contacts as $contact)
         <flux:card class="hover:bg-slate-50 transition space-y-4">
             <div class="flex items-center justify-between gap-2">
-                <flux:heading>{{ $contact->name }}</flux:heading>
+                <flux:heading class="flex items-center gap-2">
+                    {{ $contact->name }}
+                    @if($contact->primary_contact)
+                    <flux:tooltip content="Primary Contact">
+                        <flux:icon.star variant="micro" class="text-amber-500 dark:text-amber-300" />
+                    </flux:tooltip>
+                    @endif
+                </flux:heading>
                 @if($contact->position)
-                <flux:badge size="sm" color="blue">{{ $contact->position }}</flux:badge>
+                    <flux:badge size="sm" color="blue">{{ $contact->position }}</flux:badge>
                 @endif
             </div>
             <div class="text-zinc-500">
                 @if($contact->phone)
-                <span class="flex items-center gap-2 text-sm"><flux:icon.phone class="size-3" /> {{ $contact->phone }}</span>
+                    <span class="flex items-center gap-2 text-sm"><flux:icon.phone class="size-3"/> {{ $contact->phone }}</span>
                 @endif
                 @if($contact->email)
-                <span class="flex items-center gap-2 text-sm"><flux:icon.envelope class="size-3" /> {{ $contact->email }}</span>
+                    <span class="flex items-center gap-2 text-sm"><flux:icon.envelope class="size-3"/> {{ $contact->email }}</span>
                 @endif
                 @if($contact->linkedin_link)
-                <a :href="$contact->linkedin_link" class="flex items-center gap-2 text-sm"><flux:icon.linkedin class="size-3" />LinkedIn</a>
+                    <a :href="$contact->linkedin_link" class="flex items-center gap-2 text-sm">
+                        <flux:icon.linkedin class="size-3"/>
+                        LinkedIn</a>
                 @endif
             </div>
         </flux:card>
