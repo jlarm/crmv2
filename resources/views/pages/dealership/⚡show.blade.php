@@ -8,22 +8,24 @@ new class extends Component {
 };
 ?>
 
-<div>
-    <flux:card x-data="{ tab: 'info' }">
+<div x-data="{ tab: 'info' }">
+    <flux:card>
         <div class="flex justify-between items-center mb-5">
             <div class="flex gap-3 items-center">
                 <flux:heading size="xl">{{ $dealership->name }}</flux:heading>
                 <flux:text>ID: {{ $dealership->id }}</flux:text>
             </div>
             <div>
-                <flux:button
-                    x-show="tab === 'stores' || tab === 'contacts'"
-                    x-cloak
-                    size="sm"
-                    variant="primary"
-                >
-                    Add <span x-text="tab === 'stores' ? 'Store' : 'Contact'"></span>
+                <flux:modal.trigger name="create-modal">
+                    <flux:button
+                        x-show="tab === 'stores' || tab === 'contacts'"
+                        x-cloak
+                        size="sm"
+                        variant="primary"
+                    >
+                        Add <span x-text="tab === 'stores' ? 'Store' : 'Contact'"></span>
                 </flux:button>
+                </flux:modal.trigger>
                 <flux:button wire:navigate :href="route('dashboard')" size="sm">Back</flux:button>
             </div>
         </div>
@@ -45,4 +47,13 @@ new class extends Component {
             </flux:tab.panel>
         </flux:tab.group>
     </flux:card>
+
+    <flux:modal name="create-modal" class="md:w-[500px]">
+        <template x-if="tab === 'stores'">
+            <livewire:dealership.create-store :$dealership lazy/>
+        </template>
+        <template x-if="tab === 'contacts'">
+            <livewire:dealership.create-contact :$dealership lazy/>
+        </template>
+    </flux:modal>
 </div>

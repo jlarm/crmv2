@@ -2,12 +2,14 @@
 
 use App\Models\Dealership;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 new class extends Component {
     public Dealership $dealership;
 
     #[Computed]
+    #[On('store-created')]
     public function stores()
     {
         return $this->dealership
@@ -22,7 +24,7 @@ new class extends Component {
         <flux:card class="hover:bg-slate-50 transition">
             <flux:heading>{{ $store->name }}</flux:heading>
             <flux:text class="mt-1">
-                {{ $store->address }}<br />
+                {{ $store->address }}<br/>
                 {{ $store->city }}, {{ $store->state }} {{ $store->zip_code }}
                 <span class="block mt-3">{{ $store->phone }}</span>
             </flux:text>
