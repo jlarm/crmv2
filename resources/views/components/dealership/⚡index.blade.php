@@ -39,6 +39,7 @@ new class extends Component {
         $this->selectedUsers = [];
         $this->selectedStatuses = [];
         $this->selectedRatings = [];
+        $this->selectedTypes = [];
         $this->showImported = false;
     }
 
@@ -49,6 +50,7 @@ new class extends Component {
             || $this->selectedUsers != []
             || $this->selectedStatuses != []
             || $this->selectedRatings != []
+            || $this->selectedTypes != []
             || $this->showImported;
     }
 
