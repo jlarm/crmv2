@@ -23,9 +23,10 @@ new class extends Component {
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
     @forelse($this->contacts as $contact)
-        <flux:card class="hover:bg-slate-50 transition space-y-4">
+        <flux:card class="relative hover:bg-slate-50 transition space-y-4">
             <div class="flex items-center justify-between gap-2">
                 <flux:heading class="flex items-center gap-2">
+                    <flux:button variant="ghost" size="xs" icon="bars-3" inset="top right bottom" />
                     {{ $contact->name }}
                     @if($contact->primary_contact)
                     <flux:tooltip content="Primary Contact">

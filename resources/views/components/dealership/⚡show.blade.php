@@ -22,11 +22,21 @@ new class extends Component {
             ->select('id', 'name')
             ->get();
     }
+
+    public function update()
+    {
+        $this->form->update();
+
+        Flux::toast(
+            text: 'Dealership updated successfully',
+            variant: 'success',
+        );
+    }
 };
 ?>
 
 <div>
-    <form class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <form wire:submit.prevent="update" class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="col-span-2">
             <flux:card>
                 <div class="space-y-6">
@@ -106,8 +116,8 @@ new class extends Component {
                 </div>
             </flux:card>
             <div class="mt-5">
-                <flux:button variant="primary">Save Changes</flux:button>
-                <flux:button>Cancel</flux:button>
+                <flux:button type="submit" variant="primary">Save Changes</flux:button>
+                <flux:button wire:navigate :href="route('dashboard')">Cancel</flux:button>
             </div>
         </div>
         <div class="space-y-4">

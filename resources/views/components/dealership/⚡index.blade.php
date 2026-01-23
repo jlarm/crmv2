@@ -15,6 +15,7 @@ new class extends Component {
     public array $selectedUsers = [];
     public array $selectedStatuses = [];
     public array $selectedRatings = [];
+    public array $selectedTypes = [];
     public bool $showImported = false;
 
     public function sort($column): void
@@ -60,6 +61,7 @@ new class extends Component {
             ->when($this->selectedUsers, fn($query) => $query->whereHas('users', fn($q) => $q->whereIn('users.id', $this->selectedUsers)))
             ->when($this->selectedStatuses, fn($query) => $query->whereIn('status', $this->selectedStatuses))
             ->when($this->selectedRatings, fn($query) => $query->whereIn('rating', $this->selectedRatings))
+            ->when($this->selectedTypes, fn($query) => $query->whereIn('type', $this->selectedTypes))
             ->when($this->search, fn($query) => $query->where('name', 'like', '%' . $this->search . '%'))
             ->tap(fn($query) => $this->sortBy ? $query->orderBy($this->sortBy, $this->sortDirection) : $query)
             ->paginate(15);
@@ -111,6 +113,12 @@ new class extends Component {
                 <flux:pillbox.option value="hot">Hot</flux:pillbox.option>
                 <flux:pillbox.option value="warm">Warm</flux:pillbox.option>
                 <flux:pillbox.option value="cold">Cold</flux:pillbox.option>
+            </flux:pillbox>
+            <flux:pillbox multiple placeholder="Filter by type..." wire:model.live="selectedTypes">
+                <flux:pillbox.option value="automotive">Automotive</flux:pillbox.option>
+                <flux:pillbox.option value="rv">RV</flux:pillbox.option>
+                <flux:pillbox.option value="motorsports">Motorsports</flux:pillbox.option>
+                <flux:pillbox.option value="maritime">Maritime</flux:pillbox.option>
             </flux:pillbox>
             <flux:checkbox.group variant="cards">
                 <flux:checkbox label="Show imported" wire:model.live="showImported"/>

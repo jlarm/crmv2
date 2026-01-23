@@ -71,4 +71,27 @@ final class DealershipForm extends Form
         $this->currentSolutionUse = $dealership->current_solution_use ?? '';
         $this->consultants = $dealership->users->pluck('id')->toArray();
     }
+
+    public function update(): void
+    {
+        $this->validate();
+
+        $this->dealership->update([
+            'name' => $this->name,
+            'address' => $this->address,
+            'city' => $this->city,
+            'state' => $this->state,
+            'zip_code' => $this->zipCode,
+            'phone' => $this->phone,
+            'type' => $this->type,
+            'in_development' => $this->inDevelopment,
+            'status' => $this->status,
+            'rating' => $this->rating,
+            'notes' => $this->notes,
+            'current_solution_name' => $this->currentSolutionName,
+            'current_solution_use' => $this->currentSolutionUse,
+        ]);
+
+        $this->dealership->users()->sync($this->consultants);
+    }
 }
