@@ -26,7 +26,6 @@ new class extends Component {
         <flux:card class="relative hover:bg-slate-50 transition space-y-4">
             <div class="flex items-center justify-between gap-2">
                 <flux:heading class="flex items-center gap-2">
-                    <flux:button variant="ghost" size="xs" icon="bars-3" inset="top right bottom" />
                     {{ $contact->name }}
                     @if($contact->primary_contact)
                     <flux:tooltip content="Primary Contact">
@@ -34,11 +33,19 @@ new class extends Component {
                     </flux:tooltip>
                     @endif
                 </flux:heading>
-                @if($contact->position)
-                    <flux:badge size="sm" color="blue">{{ $contact->position }}</flux:badge>
-                @endif
+                <flux:dropdown position="bottom" align="end">
+                    <flux:button variant="ghost" size="xs" icon="ellipsis-vertical" inset="top right bottom" />
+
+                    <flux:navmenu>
+                        <flux:navmenu.item href="#" icon="pencil">Edit</flux:navmenu.item>
+                        <flux:navmenu.item href="#" icon="trash" variant="danger">Delete</flux:navmenu.item>
+                    </flux:navmenu>
+                </flux:dropdown>
             </div>
             <div class="text-zinc-500">
+                @if($contact->position)
+                    <flux:badge size="sm" color="blue" class="mb-2">{{ $contact->position }}</flux:badge>
+                @endif
                 @if($contact->phone)
                     <span class="flex items-center gap-2 text-sm"><flux:icon.phone class="size-3"/> {{ $contact->phone }}</span>
                 @endif
