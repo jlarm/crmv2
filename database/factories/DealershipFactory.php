@@ -19,6 +19,7 @@ final class DealershipFactory extends Factory
     public function definition(): array
     {
         return [
+            'organization_id' => \App\Models\Organization::factory(),
             'user_id' => \App\Models\User::factory(),
             'name' => fake()->company(),
             'address' => fake()->streetAddress(),

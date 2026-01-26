@@ -7,9 +7,7 @@
         <flux:header class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
-            <a href="{{ route('dashboard') }}" class="ms-2 me-5 flex items-center space-x-2 rtl:space-x-reverse lg:ms-0" wire:navigate>
-                <x-app-logo />
-            </a>
+            <livewire:organization-switcher />
 
             <flux:navbar class="-mb-px max-lg:hidden">
                 <flux:navbar.item icon="layout-grid" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
@@ -18,6 +16,7 @@
             </flux:navbar>
 
             <flux:spacer />
+
 
             <!-- Desktop User Menu -->
             <flux:dropdown position="top" align="end">

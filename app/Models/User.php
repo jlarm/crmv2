@@ -92,6 +92,27 @@ final class User extends Authenticatable
         return $this->hasMany(Reminder::class);
     }
 
+    public function organizations(): BelongsToMany
+    {
+        return $this->belongsToMany(Organization::class)->withTimestamps();
+    }
+
+    public function currentOrganization(): ?Organization
+    {
+        $organizationId = session('current_organization_id');
+
+        if (! $organizationId) {
+            return null;
+        }
+
+        return $this->organizations()->find($organizationId);
+    }
+
+    public function belongsToOrganization(int $organizationId): bool
+    {
+        return $this->organizations()->where('organizations.id', $organizationId)->exists();
+    }
+
     /**
      * Get the attributes that should be cast.
      *

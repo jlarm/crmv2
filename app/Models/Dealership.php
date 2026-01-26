@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\Scopes\OrganizationScope;
 use Database\Factories\DealershipFactory;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Number;
 
+#[ScopedBy([OrganizationScope::class])]
 final class Dealership extends Model
 {
     use HasFactory;
@@ -21,6 +24,7 @@ final class Dealership extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'organization_id',
         'user_id',
         'name',
         'address',
@@ -52,6 +56,11 @@ final class Dealership extends Model
     public static function importedStatusCount(): false|string
     {
         return Number::format(self::where('status', 'imported')->count());
+    }
+
+    public function organization(): BelongsTo
+    {
+        return $this->belongsTo(Organization::class);
     }
 
     public function user(): BelongsTo
