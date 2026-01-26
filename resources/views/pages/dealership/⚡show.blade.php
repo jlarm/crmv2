@@ -30,7 +30,7 @@ new class extends Component {
     </div>
     <div>
         <flux:tab.group>
-            <flux:tabs x-model="tab" wire:model="tab">
+            <flux:tabs x-model="tab">
                 <flux:tab name="info">Info</flux:tab>
                 <flux:tab name="stores">Stores</flux:tab>
                 <flux:tab name="contacts">Contacts</flux:tab>

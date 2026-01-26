@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Contact;
 use App\Models\Dealership;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
@@ -10,6 +11,7 @@ new class extends Component {
 
     #[Computed]
     #[On('contact-created')]
+    #[On('contact-deleted')]
     public function contacts()
     {
         return $this->dealership
@@ -17,6 +19,20 @@ new class extends Component {
             ->orderByDesc('primary_contact')
             ->orderBy('name')
             ->get();
+    }
+
+    public function delete(int $contactId): void
+    {
+        $contact = Contact::findOrFail($contactId);
+
+        $contact->delete();
+
+        Flux::toast(
+            text: 'Contact deleted successfully',
+            variant: 'success',
+        );
+
+        $this->dispatch('contact-delete');
     }
 };
 ?>
@@ -28,17 +44,19 @@ new class extends Component {
                 <flux:heading class="flex items-center gap-2">
                     {{ $contact->name }}
                     @if($contact->primary_contact)
-                    <flux:tooltip content="Primary Contact">
-                        <flux:icon.star variant="micro" class="text-amber-500 dark:text-amber-300" />
-                    </flux:tooltip>
+                        <flux:tooltip content="Primary Contact">
+                            <flux:icon.star variant="micro" class="text-amber-500 dark:text-amber-300"/>
+                        </flux:tooltip>
                     @endif
                 </flux:heading>
                 <flux:dropdown position="bottom" align="end">
-                    <flux:button variant="ghost" size="xs" icon="ellipsis-vertical" inset="top right bottom" />
+                    <flux:button variant="ghost" size="xs" icon="ellipsis-vertical" inset="top right bottom"/>
 
                     <flux:navmenu>
                         <flux:navmenu.item href="#" icon="pencil">Edit</flux:navmenu.item>
-                        <flux:navmenu.item href="#" icon="trash" variant="danger">Delete</flux:navmenu.item>
+                        <flux:navmenu.item wire:confirm="Are you sure you want to delete this contact?"
+                                           wire:click="delete({{ $contact->id }})" icon="trash" variant="danger">Delete
+                        </flux:navmenu.item>
                     </flux:navmenu>
                 </flux:dropdown>
             </div>
