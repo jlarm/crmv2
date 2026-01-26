@@ -19,7 +19,13 @@ final class ContactFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'dealership_id' => \App\Models\Dealership::factory(),
+            'name' => fake()->name(),
+            'email' => fake()->safeEmail(),
+            'phone' => fake()->phoneNumber(),
+            'position' => fake()->jobTitle(),
+            'linkedin_link' => fake()->url(),
+            'primary_contact' => fake()->boolean(),
         ];
     }
 }

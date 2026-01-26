@@ -94,4 +94,9 @@ final class DealershipForm extends Form
 
         $this->dealership->users()->sync($this->consultants);
     }
+
+    public function delete()
+    {
+        $this->dealership->delete();
+    }
 }

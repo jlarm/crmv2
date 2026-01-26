@@ -32,6 +32,18 @@ new class extends Component {
             variant: 'success',
         );
     }
+
+    public function delete()
+    {
+        $this->form->delete();
+
+        Flux::toast(
+            text: 'Dealership deleted successfully',
+            variant: 'success',
+        );
+
+        $this->redirectRoute('dashboard');
+    }
 };
 ?>
 
@@ -115,9 +127,15 @@ new class extends Component {
                     </div>
                 </div>
             </flux:card>
-            <div class="mt-5">
+            <div class="flex gap-2 mt-5">
                 <flux:button type="submit" variant="primary">Save Changes</flux:button>
                 <flux:button wire:navigate :href="route('dashboard')">Cancel</flux:button>
+                <flux:button
+                    wire:confirm="Are you sure you want to delete this dealership?"
+                    wire:click="delete"
+                    variant="danger"
+                    class="ml-auto"
+                >Delete</flux:button>
             </div>
         </div>
         <div class="space-y-4">

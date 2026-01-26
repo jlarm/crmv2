@@ -19,7 +19,17 @@ final class StoreFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => \App\Models\User::factory(),
+            'dealership_id' => \App\Models\Dealership::factory(),
+            'name' => fake()->company(),
+            'address' => fake()->streetAddress(),
+            'city' => fake()->city(),
+            'state' => fake()->stateAbbr(),
+            'zip_code' => fake()->postcode(),
+            'phone' => fake()->phoneNumber(),
+            'current_solution_name' => fake()->word(),
+            'current_solution_use' => fake()->word(),
+            'notes' => fake()->paragraph(),
         ];
     }
 }

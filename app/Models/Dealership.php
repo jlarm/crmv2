@@ -4,17 +4,21 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Database\Factories\DealershipFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Number;
 
 final class Dealership extends Model
 {
-    /** @use HasFactory<\Database\Factories\DealershipFactory> */
     use HasFactory;
+
+    /** @use HasFactory<DealershipFactory> */
+    use SoftDeletes;
 
     protected $fillable = [
         'user_id',

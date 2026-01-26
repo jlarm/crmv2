@@ -48,7 +48,7 @@ new class extends Component {
         </flux:tab.group>
     </div>
 
-    <flux:modal name="create-modal" class="md:w-[500px]">
+    <flux:modal name="create-modal" class="md:w-125">
         <template x-if="tab === 'stores'">
             <livewire:dealership.create-store :$dealership lazy/>
         </template>
